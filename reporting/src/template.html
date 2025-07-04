@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Analysis</title>
+    <style>
+        .header-banner {
+            background: #e2dfdf;
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 40px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        h1,
+        h3 {
+            color: #333;
+            background: #F5F5F5;
+            padding: 10px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 35px;
+            font-weight: bold;
+            /* margin-bottom: 10px; */
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 45px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        body,
+        p,
+        li {
+            font-size: 14px;
+            /* Adjust this size as needed */
+        }
+
+        /* Score bar styling */
+        .score-container {
+            display: flex;
+            width: 100%;
+            height: 75px;
+            /* background-color: #1a0000; */
+            /* background: linear-gradient(135deg, #b76868 0%, #f6f6f6 50%, #ffffff 100%); */
+            background-color: #7c7c7c;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25), -2px -2px 8px rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            /* Add some space between bars */
+            border: 1px solid #e0e0e0;
+
+        }
+
+        .score-bar {
+            height: 100%;
+            /* background: linear-gradient(135deg, #FF4500 0%, #ff5414 50%, #D63A00 100%); */
+            background-color: #FF4500;
+            /* box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3); */
+            /* position: relative;
+            top: -2px; */
+            transition: width 0.3s ease;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .score-label {
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffffff;
+            /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); */
+            font-size: 0.8em;
+        }
+
+        .score-label-word {
+            display: block;
+            /* Each word on a new line */
+        }
+
+        .facial-label {
+            font-weight: bold;
+            color: #b00303;
+        }
+
+        /* Invisible tables for most sections */
+        .invisible-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .invisible-table tr {
+            height: 90px;
+            /* Match the score bar height */
+        }
+
+        .invisible-table td {
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+        .invisible-table td:first-child {
+            width: 30%;
+            background-color: #E3F2FD;
+        }
+
+        .invisible-table td:nth-child(2) {
+            background-color: #fff8e6;
+            padding-top: 15px;
+            /* Fine-tune vertical positioning */
+        }
+
+        /* Specific full border styling for Q&A Similarity Analysis table */
+        .qa-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            /* Thin outer border */
+            border-radius: 4px;
+            /* Optional: slight rounding of corners */
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        .qa-table th {
+            font-weight: bold;
+            background: #E0E0E0;
+        }
+
+        .qa-table th,
+        .qa-table td {
+            border: 1px solid #d9d9d9;
+            /* Thin borders for cells */
+            padding: 10px;
+        }
+
+        .qa-table td {
+            font-weight: normal !important;
+        }
+
+        .qa-table td strong {
+            font-weight: normal !important;
+        }
+
+        .overall-result-table td:nth-child(2) {
+            text-align: center;
+        }
+
+        .overall-result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .overall-result-table td {
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        .overall-result-table td:first-child {
+            width: 70%;
+            /* Adjust as needed */
+        }
+
+        .overall-result-table td:nth-child(2) {
+            text-align: center;
+        }
+
+        .overall-summary-columns ul {
+            list-style-type: none;
+        }
+
+        .overall-summary-columns {
+            list-style-type: none;
+            display: flex;
+            /* gap: 30px; */
+            border: 2px solid #d9d9d9;
+            border-radius: 12px;
+            padding: 30px;
+            background-color: #f9fbfd;
+            /* Light background for this section */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            /* align-items: center; */
+            /* Vertically center the content */
+        }
+
+        .summary-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .summary-column,
+        .overall_score_column {
+            /* flex: 0 0 50%; */
+            /* Each column takes exactly 50% */
+            flex: 1;
+            /* Allow columns to grow/shrink equally */
+            min-width: 0;
+            /* Prevent overflow */
+        }
+
+        .overall_score_column {
+            text-align: center;
+            /* Center the gauge and text */
+        }
+
+        .gauge-svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            /* Center the SVG in the table cell */
+        }
+
+        @media print {
+            .section {
+                page-break-inside: avoid;
+            }
+
+            .invisible-table tr {
+                page-break-inside: avoid;
+            }
+
+            .qa-table tr {
+                page-break-inside: avoid;
+            }
+
+            .overall-summary-columns {
+                page-break-inside: avoid;
+                page-break-before: always;
+            }
+
+            body {
+                margin: 10mm;
+                padding: 10mm;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-banner">
+        <h1>Interview Analysis Report</h1>
+        <p style="font-size: 14px; color: #000000;">Candidate ID: {{candidate_id}} | Name: {{candidate_name}} | Prepared
+            by:
+            CareerWingsAI</p>
+    </div>
+    <div class="section">
+        <div class="overall-summary-columns">
+            <div class="summary-column">
+                <h2>Overall Result</h2>
+                <ul>
+                    <li>
+                        <div class='summary-header'>Summary<br></div> {{overall_summary}}
+                    </li>
+                    <li><br>
+                        <div class='summary-header'>Recommendations<br></div> {{recommendations}}
+                    </li>
+                </ul>
+            </div>
+            <div class="overall_score_column">
+                <h2>Overall Score</h2>
+                <div class="gauge-svg">{{gauge_svg}}</div>
+            </div>
+        </div>
+    </div>
+    <div class='section'>
+        <h3>Speech Analysis</h3>
+        <table class='invisible-table'>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{clarity_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Clarity</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{clarity_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Clarity</p>
+                        </strong><br>{{clarity_text}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{fluency_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Fluency</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{fluency_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Fluency</p>
+                        </strong><br>{{fluency_text}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{pronunciation_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Pronunciation</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{pronunciation_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Pronunciation
+                        </strong><br>{{pronunciation_text}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class='section'>
+        <h3>Competency Analysis</h3>
+        <table class='invisible-table'>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{technical_proficiency_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Technical</span>
+                                    <span class="score-label-word">Proficiency</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{technical_proficiency_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Technical Proficiency
+                        </strong><br>{{technical_proficiency_text}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{contextual_application_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Contextual</span>
+                                    <span class="score-label-word">Application</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{contextual_application_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Contextual Application
+                        </strong><br>{{contextual_application_text}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class='section'>
+        <h3>Grammar &amp; Diction</h3>
+        <table class='invisible-table'>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{articulation_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Articulation</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{articulation_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Articulation
+                        </strong><br>{{articulation_text}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{conciseness_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Clarity</span>
+                                    <span class="score-label-word">&amp;</span>
+                                    <span class="score-label-word">Conciseness</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{conciseness_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Clarity &amp; Conciseness
+                        </strong><br>{{conciseness_text}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{grammar_score}}%">
+                                <span class="score-label">
+                                    <span class="score-label-word">Grammar</span>
+                                    <span class="score-label-word">&amp;</span>
+                                    <span class="score-label-word">Vocabulary</span>
+                                </span>
+                            </div>
+                            <div class="score-text">{{grammar_score}}%</div>
+                        </div>
+                    </td>
+                    <td><strong>
+                            <p>Grammar &amp; Vocabulary</p>
+                        </strong><br>{{grammar_text}}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class='section'>
+        <h3>Facial Expression Analysis</h3>
+        <table class='invisible-table'>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="score-container">
+                            <div class="score-bar" style="width: {{facial_expression_score}}%">
+                                <span class="score-label">Score:</span>
+                            </div>
+                            <div class="score-text">{{facial_expression_score}}%</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class='facial-label'>Overall Impression</div><br>{{facial_expression_overall_impression}}
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class='facial-label'>Specific Observations</div>
+                        <br>{{facial_expression_specific_observations}}
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class='facial-label'>Final Assessment</div><br>{{facial_expression_final_assessment}}
+                        <hr>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='section'>
+        <h3>Q&amp;A Similarity Analysis</h3>
+        <table class="qa-table">
+            <thead>
+                <tr>
+                    <th>Question No.</th>
+                    <th>Question</th>
+                    <th>Candidate Response</th>
+                    <th>Correct Answer</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{qa_table_rows}}
+            </tbody>
+        </table>
+    </div>
+
+    <footer style="text-align: center; font-size: 12px; color: #777; margin-top: 40px;">
+        Generated by CareerWingsAI | Confidential
+    </footer>
+</body>
+
+</html>

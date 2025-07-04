@@ -1,0 +1,247 @@
+{
+    "type": "object",
+    "properties": {
+        "Speech Analysis": {
+            "type": "object",
+            "properties": {
+                "Clarity": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                },
+                "Fluency": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                },
+                "Pronunciation": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                }
+            },
+            "required": [
+                "Clarity",
+                "Fluency",
+                "Pronunciation"
+            ]
+        },
+        "Competency Analysis": {
+            "type": "object",
+            "properties": {
+                "Technical Proficiency": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                },
+                "Contextual Application": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                }
+            },
+            "required": [
+                "Technical Proficiency",
+                "Contextual Application"
+            ]
+        },
+        "Grammar & Diction": {
+            "type": "object",
+            "properties": {
+                "Articulation": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                },
+                "Clarity & Conciseness": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                },
+                "Grammar & Vocabulary": {
+                    "type": "object",
+                    "properties": {
+                        "score": {
+                            "type": "INTEGER",
+                            "minimum": 1,
+                            "maximum": 10
+                        },
+                        "reasoning": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "score",
+                        "reasoning"
+                    ]
+                }
+            },
+            "required": [
+                "Articulation",
+                "Clarity & Conciseness",
+                "Grammar & Vocabulary"
+            ]
+        },
+        "Facial Expression Analysis": {
+            "type": "object",
+            "properties": {
+                "score": {
+                    "type": "INTEGER",
+                    "minimum": 1,
+                    "maximum": 10
+                },
+                "Overall Impression": {
+                    "type": "string"
+                },
+                "Specific Observations": {
+                    "type": "string"
+                },
+                "Final Assessment": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "score",
+                "Overall Impression",
+                "Specific Observations",
+                "Final Assessment"
+            ]
+        },
+        "Q&A Similarity Analysis": {
+            "type": "object",
+            "properties": {
+                "table": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "Average Score": {
+                    "type": "INTEGER",
+                    "minimum": 1,
+                    "maximum": 10
+                }
+            },
+            "required": [
+                "table",
+                "Average Score"
+            ]
+        },
+        "Overall Result": {
+            "type": "object",
+            "properties": {
+                "Overall Score": {
+                    "type": "INTEGER",
+                    "minimum": 1,
+                    "maximum": 10
+                },
+                "Summary": {
+                    "type": "string"
+                },
+                "Recommendations": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "Overall Score",
+                "Summary",
+                "Recommendations"
+            ]
+        }
+    },
+    "required": [
+        "Speech Analysis",
+        "Competency Analysis",
+        "Grammar & Diction",
+        "Facial Expression Analysis",
+        "Q&A Similarity Analysis",
+        "Overall Result"
+    ]
+}

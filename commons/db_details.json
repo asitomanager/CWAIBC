@@ -1,0 +1,8 @@
+{
+    "MariaDB_DEV": {
+        "user": "raviteja",
+        "password": "r@vitej@",
+        "host": "dev.c3daodmxiqoo.ap-south-1.rds.amazonaws.com",
+        "port": 3306
+    }
+}
